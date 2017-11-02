@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 public class ApiController {
 
     @ApiOperation(value = "新闻文本提取接口", httpMethod = "POST" ,notes = "WillGet=1时， 只返回关键词列表（每个关键词及其出现的次数，KeyWordsLimit 为返回的关键词个数,这时 SentenceWordsLimit,SummaryWordsLimit 可以忽略)<br>" +
@@ -35,7 +35,8 @@ public class ApiController {
             @ApiImplicitParam(name = "sentenceWordsLimit", value = "重点句子的字数限制", paramType = "query", dataType = "Integer"),
             @ApiImplicitParam(name = "summaryWordsLimit", value = "摘要文本的字数限制",  paramType = "query", dataType = "Integer")
     })
-    @PostMapping("/api/request")
+    @RequestMapping("/api/request")
+    @ResponseBody
     public Map<String,Object> request(RequestParam param){
 
         Map<String,Object> resultMap = new HashMap<>();
@@ -67,8 +68,8 @@ public class ApiController {
     }
 
     private List<Term> segment(String document){
-        Segment shortestSegment = new ViterbiSegment().enableCustomDictionary(false).enablePlaceRecognize(true).enableOrganizationRecognize(true);
-        List<Term> segmentList = shortestSegment.seg(document);
+        Segment segment = HanLP.newSegment();
+        List<Term> segmentList = segment.seg(document);
         return segmentList;
     }
 
