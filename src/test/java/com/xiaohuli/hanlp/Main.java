@@ -4,6 +4,7 @@ import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.NShort.NShortSegment;
 import com.hankcs.hanlp.seg.Segment;
 import com.hankcs.hanlp.seg.Viterbi.ViterbiSegment;
+import com.hankcs.hanlp.seg.common.Term;
 import org.ansj.splitWord.analysis.*;
 import org.lionsoul.jcseg.tokenizer.core.*;
 
@@ -62,7 +63,14 @@ public class Main {
 //        System.out.println(DicAnalysis.parse(str));
 //        System.out.println(IndexAnalysis.parse(str));
 //        System.out.println(NlpAnalysis.parse(str));
-        System.out.println(HanLP.newSegment().seg(str));
+//        System.out.println(HanLP.newSegment().seg(str));
+        Segment segment = HanLP.newSegment();
+        List<Term> segmentList = segment.seg(str);
+        StringBuffer result = new StringBuffer();
+        if(segmentList != null && segmentList.size() > 0){
+            segmentList.stream().forEach(item -> result.append(item.word).append(" "));
+        }
+        System.out.println(result.toString());
         try {
             jcsegment(str);
         } catch (Exception e) {

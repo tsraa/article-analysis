@@ -64,10 +64,14 @@ public class ApiController {
         return resultMap;
     }
 
-    private List<Term> segment(String document){
+    private String segment(String document){
         Segment segment = HanLP.newSegment();
         List<Term> segmentList = segment.seg(document);
-        return segmentList;
+        StringBuffer result = new StringBuffer();
+        if(segmentList != null && segmentList.size() > 0){
+            segmentList.stream().forEach(item -> result.append(item.word).append(" "));
+        }
+        return result.toString();
     }
 
     private List<String> summary(String document,int limit){
