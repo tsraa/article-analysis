@@ -12,7 +12,7 @@ import java.io.Serializable;
  摘要文本的字数限制：SummaryWordsLimit
 
  */
-public class RequestParam implements Serializable{
+public class RequestParameter implements Serializable{
 
     private String title;
 

@@ -3,18 +3,15 @@ package com.xiaohuli.hanlp.controller;
 
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.Segment;
-import com.hankcs.hanlp.seg.Viterbi.ViterbiSegment;
 import com.hankcs.hanlp.seg.common.Term;
-import com.xiaohuli.hanlp.HanlpApplication;
-import com.xiaohuli.hanlp.dto.RequestParam;
+import com.xiaohuli.hanlp.dto.RequestParameter;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +34,7 @@ public class ApiController {
     })
     @RequestMapping("/api/request")
     @ResponseBody
-    public Map<String,Object> request(RequestParam param){
+    public Map<String,Object> request(RequestParameter param){
 
         Map<String,Object> resultMap = new HashMap<>();
         resultMap.put("status","0");
@@ -76,5 +73,11 @@ public class ApiController {
     private List<String> summary(String document,int limit){
         List<String> summaryList = HanLP.extractSummary(document, limit);
         return summaryList;
+    }
+
+    @RequestMapping("/api/segment")
+    public String segment(@RequestParam("content") String content, @RequestParam(value="type",required = false) String type){
+
+        return null;
     }
 }
