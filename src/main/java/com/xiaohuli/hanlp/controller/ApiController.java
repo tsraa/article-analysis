@@ -80,6 +80,7 @@ public class ApiController {
     }
 
     @RequestMapping("/api/segment")
+    @ResponseBody
     public String segment(@RequestParam("content") String content, @RequestParam(value="type",required = false) String type){
 
         return segment(content);
